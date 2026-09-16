@@ -51,17 +51,44 @@ int main(void)
 
       // 4 задание
   int sum;
-  int matrix[5][5];
-  for (int i = 0; i<5; i++)
-  {
-    sum = 0;
-    for (int j= 0; j<5; j++){
-      matrix[i][j] = -50 + rand() % 101;
-      sum += matrix[i][j];
-      printf("%4d", matrix[i][j]);
-    }
-    printf("%4d\n",sum);
-  }
+	int m;
+
+	printf("Введите размер двумерного массива массива: ");
+	scanf("%d", &m);
+
+	int** matrix = (int**)malloc(m * sizeof(int*));
+	if (matrix == NULL) {
+		printf("Ошибка выделения памяти!\n");
+		return 1;
+	}
+
+	for (int i = 0; i < m; i++) {
+		matrix[i] = (int*)malloc(m * sizeof(int));
+	}
+
+
+	for (int i = 0; i < m; i++) {
+		sum = 0;
+		for (int j = 0; j < m; j++) {
+			matrix[i][j] = -50 + rand() % 101;
+			sum += matrix[i][j];
+			printf("%4d", matrix[i][j]);
+		}
+		printf("%4d\n", sum);
+	}
+
+	int CountPositive = 0;
+	int SumPositive = 0;
+
+	for (int i = 0; i < m; i++) {
+		for (int j = i + 1; j < m; j++) {
+			CountPositive += (matrix[i][j] > 0);
+			SumPositive += (matrix[i][j] > 0) * matrix[i][j];
+		}
+	}
+	printf("Количество положительных элементов выше главной диагонали: %d\n", CountPositive);
+	printf("Сумма положительных элементов выше главной диагонали: %d\n", SumPositive);
+
     	// 5 задание
 	setvbuf(stdin, NULL, _IONBF, 0);
 	setvbuf(stdout, NULL, _IONBF, 0);
