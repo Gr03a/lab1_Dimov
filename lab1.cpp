@@ -93,47 +93,47 @@ int main(void)
 	setvbuf(stdin, NULL, _IONBF, 0);
 	setvbuf(stdout, NULL, _IONBF, 0);
 	int i;
-	struct student
-	{
-		char famil[20];
-		char name[20], facult[20];
-		int Nomzach;
-	} stud[3];
+	int count;
+	printf("Впишите колличество студентов:"); scanf("%d", &count);
+	
+	struct student* stud = (struct student*)malloc(count * sizeof(struct student));
 
-	for (i = 0; i<3; i++)
+	for (i = 0; i < count; i++)
 	{
 		printf("Введите фамилию студента\n"); scanf("%20s", stud[i].famil);
 	}
-	for (i = 0; i<3; i++)
+	for (i = 0; i < count; i++)
 	{
 		printf("Введите имя студента %s\n", stud[i].famil); scanf("%20s", stud[i].name);
 	}
-	for (i = 0; i<3; i++)
+	for (i = 0; i < count; i++)
 	{
 		printf("Введите название факультета студента %s %s\n", stud[i].famil, stud[i].name); scanf("%20s", stud[i].facult);
 	}
-	for (i = 0; i<3; i++)
+	for (i = 0; i < count; i++)
 	{
 		printf("Введите номер зачётной книжки студента %s %s\n", stud[i].famil, stud[i].name); scanf("%d", &stud[i].Nomzach);
 	}
 
-	for (i = 0; i<3; i++)
+	for (i = 0; i < count; i++)
 	{
 		printf("Cтудент %s %s обучается на факультете %s, номер зачётной книжки %d \n", stud[i].famil, stud[i].name, stud[i].facult, stud[i].Nomzach);
 	}
 	char Search[20];
-	while (0==0)
+	while (0 == 0)
 	{
-		printf("Поиск(чтобы закончить введите Q):"); scanf("%20s",Search);
+		printf("Поиск(чтобы закончить введите Q):"); scanf("%20s", Search);
 		if (strcmp(Search, "Q") == 0)break;
-		for (i = 0; i < 3; i++)
+		for (i = 0; i < count; i++)
 		{
-			if (strcmp(stud[i].famil, Search) == 0 || strcmp(stud[i].name, Search) == 0 || strcmp(stud[i].facult, Search) == 0 || stud[i].Nomzach == atoi(Search))
+			if (strstr(stud[i].famil, Search) != NULL || strstr(stud[i].name, Search) != NULL || strstr(stud[i].facult, Search) != NULL || stud[i].Nomzach == atoi(Search))
 				printf("Cтудент %s %s обучается на факультете %s, номер зачётной книжки %d \n", stud[i].famil, stud[i].name, stud[i].facult, stud[i].Nomzach);
 
 		}
-		
+
 	}
+
+	free(stud);
 	_getch();
-    return 0;
+	return 0;
 }
